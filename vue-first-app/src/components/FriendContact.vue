@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ name }} {{ Fav === "1" ? "(Favourite)" : null }}</h2>
+    <h2>{{ name }} {{ isFav ? "(Favourite)" : null }}</h2>
 
     <button @click="toggleDetails">
       {{ mayVisible ? "Hide" : "show" }}
@@ -17,11 +17,33 @@
 
 <script>
 export default {
-  props: ["name", "phoneNumber", "emailAddress", "isFavourite"],
+  // props: ["name", "phoneNumber", "emailAddress", "isFavourite"],
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    emailAddress: {
+      type: String,
+      required: true,
+    },
+    isFavourite: {
+      type: Boolean,
+      required: false,
+      default: false,
+      // validator: function(value) {
+      //   return value === "1" || value === "0";
+      // },
+    },
+  },
   data() {
     return {
       mayVisible: true,
-      Fav: this.isFavourite,
+      isFav: this.isFavourite,
       friend: {
         id: "anurag",
         name: "Anurag Tripathi",
@@ -35,11 +57,7 @@ export default {
       this.mayVisible = !this.mayVisible;
     },
     toggleFav() {
-      if (this.Fav === "1") {
-        this.Fav = "0";
-      } else {
-        this.Fav = "1";
-      }
+      this.isFav = !this.isFav;
     },
   },
 };

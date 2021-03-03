@@ -7,16 +7,12 @@
     </header>
     <ul>
       <friend-contact
-        name="anurag"
-        Phone-number="7889546123"
-        email-Address="anurag@localhost.com"
-        is-Favourite="1"
-      ></friend-contact>
-      <friend-contact
-        name="Tripathi"
-        Phone-number="897465321"
-        email-Address="tripathi@localhost.com"
-        is-Favourite="0"
+        v-for="friend in friends"
+        :key="friend.name + friend.id"
+        :name="friend.name"
+        :Phone-number="friend.phone"
+        :email-Address="friend.email"
+        :is-Favourite="true"
       ></friend-contact>
     </ul>
   </section>
@@ -28,16 +24,16 @@ export default {
     return {
       friends: [
         {
-          id: "anurag",
+          id: "1",
           name: "Anurag",
           phone: "7899874562",
           email: "anurag@localhost.com",
         },
         {
-          id: "anurag",
-          name: "Anurag",
+          id: "2",
+          name: "Tripathi",
           phone: "7899874562",
-          email: "anurag@localhost.com",
+          email: "tripathi@localhost.com",
         },
       ],
     };
