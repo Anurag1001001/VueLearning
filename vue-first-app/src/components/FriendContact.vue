@@ -1,12 +1,12 @@
 <template>
   <li>
-    <h2>{{ name }} {{ isFav ? "(Favourite)" : null }}</h2>
+    <h2>{{ name }} {{ isFavourite ? "(Favourite)" : null }}</h2>
 
     <button @click="toggleDetails">
       {{ mayVisible ? "Hide" : "show" }}
     </button>
     <button @click="toggleFav">
-      {{ Fav === "1" ? "unfav" : "Fav" }}
+      {{ isFavourite ? "unfav" : "Fav" }}
     </button>
     <ul v-if="mayVisible">
       <li><strong>Phone:</strong>{{ phoneNumber }}</li>
@@ -23,6 +23,10 @@ export default {
       type: String,
       required: true,
     },
+    id: {
+      type: String,
+      required: true,
+    },
     phoneNumber: {
       type: String,
       required: true,
@@ -33,23 +37,18 @@ export default {
     },
     isFavourite: {
       type: Boolean,
-      required: false,
+      required: true,
       default: false,
       // validator: function(value) {
       //   return value === "1" || value === "0";
       // },
     },
   },
+  // this is the best practice while working with a team, defining events name(custom event) which i'll be using in this component so that other developer can know what kind of other custom event i've used to build this component
+  emits: ["toggle-favourite"],
   data() {
     return {
       mayVisible: true,
-      isFav: this.isFavourite,
-      friend: {
-        id: "anurag",
-        name: "Anurag Tripathi",
-        email: "anurag@localhost.com",
-        phone: "9876541230",
-      },
     };
   },
   methods: {
@@ -57,7 +56,10 @@ export default {
       this.mayVisible = !this.mayVisible;
     },
     toggleFav() {
-      this.isFav = !this.isFav;
+      // kebab case
+      // first argument would be custom event name and should in kebab case and now we can pass as many argument as we need and all other argument would be data related to event that i want to execute
+      this.$emit("toggle-favourite", this.id);
+      // this.isFav = !this.isFav;
     },
   },
 };
