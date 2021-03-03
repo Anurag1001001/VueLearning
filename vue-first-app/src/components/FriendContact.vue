@@ -1,22 +1,27 @@
 <template>
   <li>
-    <h2>{{ friend.name }}</h2>
+    <h2>{{ name }} {{ Fav === "1" ? "(Favourite)" : null }}</h2>
 
     <button @click="toggleDetails">
       {{ mayVisible ? "Hide" : "show" }}
     </button>
+    <button @click="toggleFav">
+      {{ Fav === "1" ? "unfav" : "Fav" }}
+    </button>
     <ul v-if="mayVisible">
-      <li><strong>Phone:</strong>{{ friend.phone }}</li>
-      <li><strong>Email:</strong>{{ friend.email }}</li>
+      <li><strong>Phone:</strong>{{ phoneNumber }}</li>
+      <li><strong>Email:</strong>{{ emailAddress }}</li>
     </ul>
   </li>
 </template>
 
 <script>
 export default {
+  props: ["name", "phoneNumber", "emailAddress", "isFavourite"],
   data() {
     return {
       mayVisible: true,
+      Fav: this.isFavourite,
       friend: {
         id: "anurag",
         name: "Anurag Tripathi",
@@ -28,6 +33,13 @@ export default {
   methods: {
     toggleDetails() {
       this.mayVisible = !this.mayVisible;
+    },
+    toggleFav() {
+      if (this.Fav === "1") {
+        this.Fav = "0";
+      } else {
+        this.Fav = "1";
+      }
     },
   },
 };
