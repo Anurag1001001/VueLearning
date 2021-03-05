@@ -11,12 +11,14 @@
   </div>
 </template>
 
+//
 <script>
-export default {
-  mounted() {
-    console.log(this.$slots.header);
-  },
-};
+// export default {
+//   mounted() {
+//     console.log(this.$slots.header);
+//   },
+// };
+//
 </script>
 
 <style scoped>
