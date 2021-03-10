@@ -4,13 +4,14 @@
     <p>{{ uAge }}</p>
     <div>
       <input type="text" placeholder="FirstName" v-model="fName" />
-      <input type="text" placeholder="LastName" v-model="lName" />
+      <input type="text" placeholder="LastName" ref="LastNameInput" />
+      <button @click="setLastName">setLastName</button>
     </div>
   </section>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 export default {
   setup() {
     // const user = ref({
@@ -21,6 +22,7 @@ export default {
     const fName = ref('');
     const lName = ref('');
     const uAge = ref('32');
+    const LastNameInput = ref(null);
 
     // setTimeout(() => {
     //   // userName.value = 'ANur';
@@ -34,15 +36,25 @@ export default {
     //   lName.value = event.target.value;
     // }
 
+    function setLastName() {
+      // this is how we use template refs
+      lName.value = LastNameInput.value.value;
+    }
+
     const user = computed(() => {
       return fName.value + ' ' + lName.value;
+    });
+    watch(fName, function(oldValue, newValue) {
+      console.log('oldValue', oldValue);
+      console.log('newValue', newValue);
     });
 
     return {
       user,
       uAge,
       fName,
-      lName
+      LastNameInput,
+      setLastName
     };
   }
   // data() {
